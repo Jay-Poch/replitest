@@ -29,6 +29,18 @@ const initialState: BuildState = {
   accessories: []
 };
 
+// Debug function to check what's in the store
+function debugStore() {
+  const state = useBuild.getState();
+  console.log("Current store state:", {
+    drone: state.drone?.id || null,
+    goggles: state.goggles?.id || null,
+    radio: state.radio?.id || null,
+    battery: state.battery?.id || null,
+    accessories: state.accessories?.map(a => a.id) || []
+  });
+}
+
 export const useBuild = create<BuildState & BuildActions>((set, get) => ({
   ...initialState,
   

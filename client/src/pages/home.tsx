@@ -22,11 +22,21 @@ export default function Home() {
   const [sortOption, setSortOption] = useState("price-asc");
   
   // Extract individual state properties to avoid infinite updates
+  // Extract individual state properties to avoid infinite updates
   const drone = useBuild(state => state.drone);
   const goggles = useBuild(state => state.goggles);
   const radio = useBuild(state => state.radio);
   const battery = useBuild(state => state.battery);
   const accessories = useBuild(state => state.accessories);
+  
+  // Debug logging to see current build state
+  console.log("Current build state ID:", { 
+    drone: drone?.id || null, 
+    goggles: goggles?.id || null, 
+    radio: radio?.id || null, 
+    battery: battery?.id || null, 
+    accessories: accessories?.map(a => a.id) || [] 
+  });
   
   // Import the interface from compatibility.ts
   interface BuildComponentState {
@@ -186,7 +196,12 @@ export default function Home() {
                             variant="ghost" 
                             size="sm" 
                             className="text-xs text-red-500 hover:text-red-700"
-                            onClick={() => useBuild.getState().removeComponent("drone")}
+                            onClick={() => {
+                              console.log("Removing drone component");
+                              useBuild.getState().removeComponent("drone");
+                              // Verify state after removal
+                              console.log("After removal, state is:", useBuild.getState());
+                            }}
                           >
                             Remove
                           </Button>

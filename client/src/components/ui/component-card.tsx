@@ -11,8 +11,8 @@ interface ComponentCardProps {
 }
 
 export function ComponentCard({ component, onViewDetails }: ComponentCardProps) {
-  const { addComponent } = useBuild();
-  
+  // Use get state directly to avoid stale closure issues
+  // Don't destructure the addComponent method
   const {
     id,
     name,
@@ -30,7 +30,12 @@ export function ComponentCard({ component, onViewDetails }: ComponentCardProps) 
   const handleAddToBuild = () => {
     // Log the category for debugging
     console.log(`Component card: Adding component with category ${category}`);
-    addComponent(category, component);
+    
+    // Use getState to get the latest addComponent function
+    useBuild.getState().addComponent(category, component);
+    
+    // Debug what's in the store after adding
+    console.log("After adding component, state is:", useBuild.getState());
   };
 
   return (
