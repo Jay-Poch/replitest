@@ -8,7 +8,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Check, AlertTriangle } from "lucide-react";
+import { Check, AlertTriangle, ShoppingCart, ExternalLink } from "lucide-react";
 import { useBuild } from "@/lib/hooks/use-build";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
@@ -127,34 +127,98 @@ export function BuildSummary({ open, onOpenChange }: BuildSummaryProps) {
         
         <div className="border-t border-b border-gray-200 py-4">
           <dl className="divide-y divide-gray-200">
-            <div className="py-3 flex justify-between">
+            <div className="py-3">
               <dt className="text-sm font-medium text-gray-500">Drone</dt>
               <dd className="text-sm text-gray-900">
-                {build.drone ? `${build.drone.name} ($${build.drone.price.toFixed(2)})` : (
+                {build.drone ? (
+                  <div className="flex flex-col">
+                    <span>{build.drone.name} (${build.drone.price.toFixed(2)})</span>
+                    {build.drone.purchaseUrl && (
+                      <a 
+                        href={build.drone.purchaseUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-blue-600 hover:underline flex items-center mt-1"
+                      >
+                        <ShoppingCart className="h-3 w-3 mr-1" />
+                        Purchase
+                        <ExternalLink className="h-3 w-3 ml-1" />
+                      </a>
+                    )}
+                  </div>
+                ) : (
                   <span className="text-gray-500 italic">Not selected</span>
                 )}
               </dd>
             </div>
-            <div className="py-3 flex justify-between">
+            <div className="py-3">
               <dt className="text-sm font-medium text-gray-500">Goggles</dt>
               <dd className="text-sm text-gray-900">
-                {build.goggles ? `${build.goggles.name} ($${build.goggles.price.toFixed(2)})` : (
+                {build.goggles ? (
+                  <div className="flex flex-col">
+                    <span>{build.goggles.name} (${build.goggles.price.toFixed(2)})</span>
+                    {build.goggles.purchaseUrl && (
+                      <a 
+                        href={build.goggles.purchaseUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-blue-600 hover:underline flex items-center mt-1"
+                      >
+                        <ShoppingCart className="h-3 w-3 mr-1" />
+                        Purchase
+                        <ExternalLink className="h-3 w-3 ml-1" />
+                      </a>
+                    )}
+                  </div>
+                ) : (
                   <span className="text-gray-500 italic">Not selected</span>
                 )}
               </dd>
             </div>
-            <div className="py-3 flex justify-between">
+            <div className="py-3">
               <dt className="text-sm font-medium text-gray-500">Radio</dt>
               <dd className="text-sm text-gray-900">
-                {build.radio ? `${build.radio.name} ($${build.radio.price.toFixed(2)})` : (
+                {build.radio ? (
+                  <div className="flex flex-col">
+                    <span>{build.radio.name} (${build.radio.price.toFixed(2)})</span>
+                    {build.radio.purchaseUrl && (
+                      <a 
+                        href={build.radio.purchaseUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-blue-600 hover:underline flex items-center mt-1"
+                      >
+                        <ShoppingCart className="h-3 w-3 mr-1" />
+                        Purchase
+                        <ExternalLink className="h-3 w-3 ml-1" />
+                      </a>
+                    )}
+                  </div>
+                ) : (
                   <span className="text-gray-500 italic">Not selected</span>
                 )}
               </dd>
             </div>
-            <div className="py-3 flex justify-between">
+            <div className="py-3">
               <dt className="text-sm font-medium text-gray-500">Battery</dt>
               <dd className="text-sm text-gray-900">
-                {build.battery ? `${build.battery.name} ($${build.battery.price.toFixed(2)})` : (
+                {build.battery ? (
+                  <div className="flex flex-col">
+                    <span>{build.battery.name} (${build.battery.price.toFixed(2)})</span>
+                    {build.battery.purchaseUrl && (
+                      <a 
+                        href={build.battery.purchaseUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-blue-600 hover:underline flex items-center mt-1"
+                      >
+                        <ShoppingCart className="h-3 w-3 mr-1" />
+                        Purchase
+                        <ExternalLink className="h-3 w-3 ml-1" />
+                      </a>
+                    )}
+                  </div>
+                ) : (
                   <span className="text-gray-500 italic">Not selected</span>
                 )}
               </dd>
@@ -165,8 +229,22 @@ export function BuildSummary({ open, onOpenChange }: BuildSummaryProps) {
                 {build.accessories && build.accessories.length > 0 ? (
                   <ul className="space-y-1">
                     {build.accessories.map(acc => (
-                      <li key={acc.id} className="flex justify-between items-center">
-                        <span>{acc.name} (${acc.price.toFixed(2)})</span>
+                      <li key={acc.id} className="flex justify-between items-start">
+                        <div className="flex flex-col">
+                          <span>{acc.name} (${acc.price.toFixed(2)})</span>
+                          {acc.purchaseUrl && (
+                            <a 
+                              href={acc.purchaseUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-xs text-blue-600 hover:underline flex items-center mt-1"
+                            >
+                              <ShoppingCart className="h-3 w-3 mr-1" />
+                              Purchase
+                              <ExternalLink className="h-3 w-3 ml-1" />
+                            </a>
+                          )}
+                        </div>
                         <Button 
                           variant="ghost" 
                           size="sm" 

@@ -9,7 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Component } from "@shared/schema";
 import { useBuild } from "@/lib/hooks/use-build";
-import { Info } from "lucide-react";
+import { Info, ShoppingCart, ExternalLink } from "lucide-react";
 
 interface PartDetailsProps {
   open: boolean;
@@ -89,6 +89,24 @@ export function PartDetails({ open, onOpenChange, component }: PartDetailsProps)
           </div>
         </div>
         
+        {/* Purchase Link */}
+        {component.purchaseUrl && (
+          <div className="mt-4 border-t border-gray-200 pt-4">
+            <div className="flex items-center">
+              <ShoppingCart className="h-5 w-5 text-gray-500 mr-2" />
+              <a 
+                href={component.purchaseUrl} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-sm text-blue-600 hover:underline flex items-center"
+              >
+                Purchase from retailer
+                <ExternalLink className="h-4 w-4 ml-1" />
+              </a>
+            </div>
+          </div>
+        )}
+
         <DialogFooter className="mt-6">
           <Button onClick={handleAddToBuild}>
             Add to Build

@@ -110,12 +110,16 @@ export function ComponentCard({ component, onViewDetails }: ComponentCardProps) 
           >
             <Info className="h-4 w-4" />
           </Button>
-          <Button 
-            variant="outline" 
-            size="icon"
-          >
-            <Share2 className="h-4 w-4" />
-          </Button>
+          {purchaseUrl && (
+            <Button 
+              variant="outline" 
+              size="icon"
+              onClick={() => window.open(purchaseUrl, '_blank')}
+              title="Purchase"
+            >
+              <ShoppingCart className="h-4 w-4" />
+            </Button>
+          )}
         </div>
       </CardContent>
     </Card>
