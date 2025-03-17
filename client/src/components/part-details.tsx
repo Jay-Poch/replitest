@@ -25,6 +25,8 @@ export function PartDetails({ open, onOpenChange, component }: PartDetailsProps)
   }
   
   const handleAddToBuild = () => {
+    // Log the component category for debugging
+    console.log(`Part details: Adding component with category ${component.category}`);
     addComponent(component.category, component);
     onOpenChange(false);
   };

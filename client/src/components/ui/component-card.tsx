@@ -28,6 +28,8 @@ export function ComponentCard({ component, onViewDetails }: ComponentCardProps) 
   const specsArray = Object.entries(specifications).slice(0, 4);
 
   const handleAddToBuild = () => {
+    // Log the category for debugging
+    console.log(`Component card: Adding component with category ${category}`);
     addComponent(category, component);
   };
 

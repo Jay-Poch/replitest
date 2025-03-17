@@ -56,6 +56,9 @@ export default function Home() {
     accessories: "accessory"
   };
   
+  // Add debug logging
+  console.log("Current category:", currentCategory, "API category:", categoryToEndpoint[currentCategory]);
+  
   const apiCategory = categoryToEndpoint[currentCategory];
   
   // Fetch components
