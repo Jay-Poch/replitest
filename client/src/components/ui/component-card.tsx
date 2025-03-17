@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Info, Share2 } from "lucide-react";
+import { Info, Share2, ShoppingCart } from "lucide-react";
 import { Component } from "@shared/schema";
 import { useBuild } from "@/lib/hooks/use-build";
 
@@ -21,7 +21,8 @@ export function ComponentCard({ component, onViewDetails }: ComponentCardProps) 
     image,
     description,
     inStock,
-    specifications
+    specifications,
+    purchaseUrl
   } = component;
 
   // Convert specifications object to array for display

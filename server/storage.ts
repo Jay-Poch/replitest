@@ -127,7 +127,8 @@ export class MemStorage implements IStorage {
         protocols: "Multi-module",
         battery: "2x 18650"
       },
-      compatibleWith: ["radio-frsky", "radio-flysky", "radio-spektrum", "radio-elrs"]
+      compatibleWith: ["radio-frsky", "radio-flysky", "radio-spektrum", "radio-elrs"],
+      purchaseUrl: "https://www.radiomasterrc.com/products/tx16s-mark-ii-radio-controller"
     });
 
     this.createComponent({
@@ -144,7 +145,8 @@ export class MemStorage implements IStorage {
         battery: "1000mAh",
         usb: "Simulator Compatible"
       },
-      compatibleWith: ["radio-frsky"]
+      compatibleWith: ["radio-frsky"],
+      purchaseUrl: "https://betafpv.com/collections/tx-lite-series/products/literadio-2-radio-transmitter"
     });
     
     // Batteries
@@ -162,7 +164,8 @@ export class MemStorage implements IStorage {
         discharge: "30C",
         weight: "8.5g"
       },
-      compatibleWith: ["battery-1s"]
+      compatibleWith: ["battery-1s"],
+      purchaseUrl: "https://www.getfpv.com/gaoneng-gnb-300mah-1s-3-8v-30c-lihv-battery-ph2-0.html"
     });
 
     this.createComponent({
@@ -179,7 +182,8 @@ export class MemStorage implements IStorage {
         discharge: "25C",
         weight: "10.5g"
       },
-      compatibleWith: ["battery-1s"]
+      compatibleWith: ["battery-1s"],
+      purchaseUrl: "https://www.genstattu.com/tattu-450mah-1s-3-7v-25c-lipo-battery-pack-with-jst-ph-2-0-connector.html"
     });
     
     // Accessories
@@ -197,7 +201,8 @@ export class MemStorage implements IStorage {
         quantity: "8pcs",
         material: "Polycarbonate"
       },
-      compatibleWith: ["all"]
+      compatibleWith: ["all"],
+      purchaseUrl: "https://www.getfpv.com/gemfan-tri-blade-31mm-micro-whoop-propellers-16pcs.html"
     });
 
     this.createComponent({
@@ -214,7 +219,8 @@ export class MemStorage implements IStorage {
         power: "USB-C",
         features: "Storage Mode"
       },
-      compatibleWith: ["battery-1s"]
+      compatibleWith: ["battery-1s"],
+      purchaseUrl: "https://www.banggood.com/URUAV-UR6-6-in-1-3_7V-1S-Lipo-Battery-Charger-Board-for-Tiny-Whoop-Blade-Inductrix-JST-PH2_0-mCPX-Connector-p-1180757.html"
     });
   }
   
