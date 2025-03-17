@@ -13,6 +13,7 @@ export const components = pgTable("components", {
   inStock: boolean("in_stock").default(true),
   specifications: jsonb("specifications").notNull(), // Flight time, motors, etc.
   compatibleWith: jsonb("compatible_with").notNull(), // Array of component IDs or categories this is compatible with
+  purchaseUrl: text("purchase_url"), // URL to buy the component
 });
 
 export const builds = pgTable("builds", {
@@ -57,7 +58,8 @@ export const ComponentSchema = z.object({
   weight: z.number().optional(),
   inStock: z.boolean().default(true),
   specifications: z.record(z.string(), z.any()),
-  compatibleWith: z.array(z.string())
+  compatibleWith: z.array(z.string()),
+  purchaseUrl: z.string().url("Must be a valid URL").optional()
 });
 
 // Build object schema

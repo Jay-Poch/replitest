@@ -51,7 +51,8 @@ export class MemStorage implements IStorage {
         camera: "RunCam Nano 3",
         receiver: "SPI"
       },
-      compatibleWith: ["battery-1s", "radio-frsky", "radio-flysky"]
+      compatibleWith: ["battery-1s", "radio-frsky", "radio-flysky"],
+      purchaseUrl: "https://www.getfpv.com/happymodel-mobula6-1s-micro-whoop-quadcopter-bnf.html"
     });
 
     this.createComponent({
@@ -70,7 +71,8 @@ export class MemStorage implements IStorage {
         camera: "CMOS",
         receiver: "SPI/ELRS"
       },
-      compatibleWith: ["battery-1s", "radio-frsky", "radio-elrs"]
+      compatibleWith: ["battery-1s", "radio-frsky", "radio-elrs"],
+      purchaseUrl: "https://betafpv.com/products/meteor65-brushless-whoop-quadcopter"
     });
     
     // Goggles
@@ -88,7 +90,8 @@ export class MemStorage implements IStorage {
         dvr: "Yes",
         battery: "3.7V 1800mAh"
       },
-      compatibleWith: ["all"]
+      compatibleWith: ["all"],
+      purchaseUrl: "https://www.getfpv.com/fat-shark-recon-v3-fpv-goggles.html"
     });
 
     this.createComponent({
@@ -105,7 +108,8 @@ export class MemStorage implements IStorage {
         latency: "~28ms",
         refreshRate: "144Hz"
       },
-      compatibleWith: ["dji-air-unit"]
+      compatibleWith: ["dji-air-unit"],
+      purchaseUrl: "https://www.dji.com/dji-fpv/specs"
     });
     
     // Radios
