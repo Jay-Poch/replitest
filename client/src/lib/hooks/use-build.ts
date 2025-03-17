@@ -14,7 +14,7 @@ interface BuildState {
 // Build actions
 interface BuildActions {
   addComponent: (category: string, component: Component) => void;
-  removeComponent: (category: string) => void;
+  removeComponent: (category: string, id?: number) => void;
   resetBuild: () => void;
   loadBuild: (build: BuildState) => void;
   loadBuildById: (id: number) => Promise<void>;
@@ -114,9 +114,9 @@ export const useBuild = create<BuildState & BuildActions>((set, get) => ({
     });
   },
   
-  removeComponent: (category) => {
+  removeComponent: (category, id) => {
     // Add some debug logging
-    console.log(`Removing component with category: ${category}`);
+    console.log(`Removing component with category: ${category}${id ? ` and id: ${id}` : ''}`);
     
     // Normalize category for consistent handling
     const normalizedCategory = category.toLowerCase();
@@ -136,7 +136,15 @@ export const useBuild = create<BuildState & BuildActions>((set, get) => ({
         break;
       case "accessory":
       case "accessories":
-        set({ accessories: [] });
+        // If an ID is provided, only remove that accessory
+        if (id !== undefined) {
+          set(state => ({
+            accessories: state.accessories.filter(acc => acc.id !== id)
+          }));
+        } else {
+          // Otherwise remove all accessories
+          set({ accessories: [] });
+        }
         break;
       default:
         console.warn(`Unknown component category: ${category}`);

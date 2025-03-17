@@ -159,11 +159,25 @@ export function BuildSummary({ open, onOpenChange }: BuildSummaryProps) {
                 )}
               </dd>
             </div>
-            <div className="py-3 flex justify-between">
-              <dt className="text-sm font-medium text-gray-500">Accessories</dt>
+            <div className="py-3">
+              <dt className="text-sm font-medium text-gray-500 mb-2">Accessories</dt>
               <dd className="text-sm text-gray-900">
                 {build.accessories && build.accessories.length > 0 ? (
-                  build.accessories.map(acc => `${acc.name} ($${acc.price.toFixed(2)})`).join(", ")
+                  <ul className="space-y-1">
+                    {build.accessories.map(acc => (
+                      <li key={acc.id} className="flex justify-between items-center">
+                        <span>{acc.name} (${acc.price.toFixed(2)})</span>
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="text-xs text-red-500 hover:text-red-700"
+                          onClick={() => useBuild.getState().removeComponent("accessory", acc.id)}
+                        >
+                          Remove
+                        </Button>
+                      </li>
+                    ))}
+                  </ul>
                 ) : (
                   <span className="text-gray-500 italic">None</span>
                 )}

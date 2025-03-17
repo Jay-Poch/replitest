@@ -274,6 +274,35 @@ export default function Home() {
                       )}
                     </dd>
                   </div>
+                  
+                  {/* Accessories section */}
+                  <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt className="text-sm font-medium text-gray-500 capitalize">Accessories</dt>
+                    <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                      {!build?.accessories || build.accessories.length === 0 ? (
+                        <span className="text-gray-400 italic">No accessories selected</span>
+                      ) : (
+                        <div className="space-y-2">
+                          {build.accessories.map((accessory) => (
+                            <div key={accessory.id} className="flex items-center justify-between">
+                              <span>{accessory.name}</span>
+                              <Button 
+                                variant="ghost" 
+                                size="sm" 
+                                className="text-xs text-red-500 hover:text-red-700"
+                                onClick={() => {
+                                  console.log("Removing accessory:", accessory.id);
+                                  useBuild.getState().removeComponent("accessory", accessory.id);
+                                }}
+                              >
+                                Remove
+                              </Button>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </dd>
+                  </div>
                 </dl>
               </div>
             </div>
