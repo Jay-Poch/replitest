@@ -41,8 +41,20 @@ function debugStore() {
   });
 }
 
+// Use immer for immutable state updates
 export const useBuild = create<BuildState & BuildActions>((set, get) => ({
   ...initialState,
+  
+  // Debugging middleware
+  ...(process.env.NODE_ENV !== 'production' && {
+    __SET_STATE_WRAPPER__: (fn: any) => {
+      const prevState = get();
+      console.log('Previous state:', prevState);
+      const result = set(fn);
+      console.log('New state:', get());
+      return result;
+    }
+  }),
   
   addComponent: (category, component) => {
     // Add some debug logging
@@ -51,28 +63,55 @@ export const useBuild = create<BuildState & BuildActions>((set, get) => ({
     // Normalize category for consistent handling
     const normalizedCategory = category.toLowerCase();
     
+    // Debug current state
+    const currentState = get();
+    console.log("Before adding, current state is:", {
+      drone: currentState.drone?.id || null,
+      goggles: currentState.goggles?.id || null,
+      radio: currentState.radio?.id || null,
+      battery: currentState.battery?.id || null,
+      accessories: currentState.accessories?.map(a => a.id) || []
+    });
+    
+    // Create newState object based on category
+    let newState: Partial<BuildState> = {};
+    
     switch (normalizedCategory) {
       case "drone":
-        set({ drone: component });
+        newState = { drone: component };
         break;
       case "goggles":
-        set({ goggles: component });
+        newState = { goggles: component };
         break;
       case "radio":
-        set({ radio: component });
+        newState = { radio: component };
         break;
       case "battery":
-        set({ battery: component });
+        newState = { battery: component };
         break;
       case "accessory":
       case "accessories":
-        set(state => ({
-          accessories: [...state.accessories.filter(acc => acc.id !== component.id), component]
-        }));
+        newState = { 
+          accessories: [...currentState.accessories.filter(acc => acc.id !== component.id), component] 
+        };
         break;
       default:
         console.warn(`Unknown component category: ${category}`);
+        return; // Exit if category is unknown
     }
+    
+    // Apply the update and log the updated state
+    set(newState);
+    
+    // Verify the update worked
+    const updatedState = get();
+    console.log("After adding, updated state is:", {
+      drone: updatedState.drone?.id || null,
+      goggles: updatedState.goggles?.id || null,
+      radio: updatedState.radio?.id || null,
+      battery: updatedState.battery?.id || null,
+      accessories: updatedState.accessories?.map(a => a.id) || []
+    });
   },
   
   removeComponent: (category) => {

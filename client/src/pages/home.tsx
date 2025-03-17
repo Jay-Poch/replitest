@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Header } from "@/components/layout/header";
 import { Sidebar } from "@/components/layout/sidebar";
 import { ComponentCard } from "@/components/ui/component-card";
@@ -21,22 +21,24 @@ export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOption, setSortOption] = useState("price-asc");
   
-  // Extract individual state properties to avoid infinite updates
-  // Extract individual state properties to avoid infinite updates
+  // Access each piece of state individually to prevent re-renders when other parts change
   const drone = useBuild(state => state.drone);
   const goggles = useBuild(state => state.goggles);
   const radio = useBuild(state => state.radio);
   const battery = useBuild(state => state.battery);
   const accessories = useBuild(state => state.accessories);
   
-  // Debug logging to see current build state
-  console.log("Current build state ID:", { 
-    drone: drone?.id || null, 
-    goggles: goggles?.id || null, 
-    radio: radio?.id || null, 
-    battery: battery?.id || null, 
-    accessories: accessories?.map(a => a.id) || [] 
-  });
+  // Debug only on mount
+  useEffect(() => {
+    // Log once on component mount
+    console.log("Initial build state:", { 
+      drone: drone?.id || null, 
+      goggles: goggles?.id || null, 
+      radio: radio?.id || null, 
+      battery: battery?.id || null, 
+      accessories: accessories?.map(a => a.id) || [] 
+    });
+  }, []);
   
   // Import the interface from compatibility.ts
   interface BuildComponentState {

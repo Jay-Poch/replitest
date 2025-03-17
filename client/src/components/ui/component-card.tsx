@@ -29,13 +29,36 @@ export function ComponentCard({ component, onViewDetails }: ComponentCardProps) 
 
   const handleAddToBuild = () => {
     // Log the category for debugging
-    console.log(`Component card: Adding component with category ${category}`);
+    console.log(`Component card: Adding component with category ${category}`, { id: component.id, name: component.name });
     
-    // Use getState to get the latest addComponent function
-    useBuild.getState().addComponent(category, component);
+    // First get the current state to see what's in it
+    const buildState = useBuild.getState();
+    console.log(`Before adding ${category}, current state:`, {
+      drone: buildState.drone?.id,
+      goggles: buildState.goggles?.id,
+      radio: buildState.radio?.id,
+      battery: buildState.battery?.id,
+      accessories: buildState.accessories?.map(a => a.id)
+    });
     
-    // Debug what's in the store after adding
-    console.log("After adding component, state is:", useBuild.getState());
+    // Now add the component with better error handling
+    try {
+      // Clone the component to ensure we don't have reference issues
+      const componentToAdd = { ...component };
+      buildState.addComponent(category, componentToAdd);
+      
+      // Check if it was added successfully
+      const updatedState = useBuild.getState();
+      console.log(`After adding ${category}, state is now:`, {
+        drone: updatedState.drone?.id,
+        goggles: updatedState.goggles?.id,
+        radio: updatedState.radio?.id,
+        battery: updatedState.battery?.id,
+        accessories: updatedState.accessories?.map(a => a.id)
+      });
+    } catch (error) {
+      console.error(`Error adding component to build:`, error);
+    }
   };
 
   return (
