@@ -10,7 +10,7 @@ import { useBuild } from "@/lib/hooks/use-build";
 import { Component } from "@shared/schema";
 import { useFilter } from "@/lib/hooks/use-filter";
 import { useQuery } from "@tanstack/react-query";
-import { Search, SlidersHorizontal, AlertTriangle } from "lucide-react";
+import { Search, SlidersHorizontal, AlertTriangle, ShoppingCart, ExternalLink } from "lucide-react";
 import { checkCompatibility } from "@/lib/compatibility";
 
 export default function Home() {
@@ -168,6 +168,25 @@ export default function Home() {
               </div>
             </div>
             
+            {/* Desktop category tabs - visible on md and larger screens */}
+            <div className="hidden md:block border-b border-gray-200 mb-6">
+              <div className="flex pb-3 space-x-8">
+                {["drones", "goggles", "radios", "batteries", "accessories"].map((category) => (
+                  <button
+                    key={`desktop-${category}`}
+                    onClick={() => setCurrentCategory(category)}
+                    className={`whitespace-nowrap pb-3 px-1 border-b-2 font-medium text-sm ${
+                      currentCategory === category
+                        ? "border-primary text-primary"
+                        : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                    }`}
+                  >
+                    {category.charAt(0).toUpperCase() + category.slice(1)}
+                  </button>
+                ))}
+              </div>
+            </div>
+            
             {/* Current build status */}
             <div className="bg-white shadow overflow-hidden sm:rounded-lg mb-6">
               <div className="px-4 py-5 sm:px-6 flex justify-between items-center">
@@ -192,21 +211,35 @@ export default function Home() {
                       {!build?.drone ? (
                         <span className="text-gray-400 italic">Not selected</span>
                       ) : (
-                        <div className="flex items-center justify-between">
-                          <span>{build.drone.name}</span>
-                          <Button 
-                            variant="ghost" 
-                            size="sm" 
-                            className="text-xs text-red-500 hover:text-red-700"
-                            onClick={() => {
-                              console.log("Removing drone component");
-                              useBuild.getState().removeComponent("drone");
-                              // Verify state after removal
-                              console.log("After removal, state is:", useBuild.getState());
-                            }}
-                          >
-                            Remove
-                          </Button>
+                        <div className="flex flex-col">
+                          <div className="flex items-center justify-between">
+                            <span>{build.drone.name}</span>
+                            <Button 
+                              variant="ghost" 
+                              size="sm" 
+                              className="text-xs text-red-500 hover:text-red-700"
+                              onClick={() => {
+                                console.log("Removing drone component");
+                                useBuild.getState().removeComponent("drone");
+                                // Verify state after removal
+                                console.log("After removal, state is:", useBuild.getState());
+                              }}
+                            >
+                              Remove
+                            </Button>
+                          </div>
+                          {build.drone.purchaseUrl && (
+                            <a 
+                              href={build.drone.purchaseUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-xs text-blue-600 hover:underline flex items-center mt-1"
+                            >
+                              <ShoppingCart className="h-3 w-3 mr-1" />
+                              Purchase
+                              <ExternalLink className="h-3 w-3 ml-1" />
+                            </a>
+                          )}
                         </div>
                       )}
                     </dd>
@@ -218,16 +251,30 @@ export default function Home() {
                       {!build?.goggles ? (
                         <span className="text-gray-400 italic">Not selected</span>
                       ) : (
-                        <div className="flex items-center justify-between">
-                          <span>{build?.goggles?.name}</span>
-                          <Button 
-                            variant="ghost" 
-                            size="sm" 
-                            className="text-xs text-red-500 hover:text-red-700"
-                            onClick={() => useBuild.getState().removeComponent("goggles")}
-                          >
-                            Remove
-                          </Button>
+                        <div className="flex flex-col">
+                          <div className="flex items-center justify-between">
+                            <span>{build?.goggles?.name}</span>
+                            <Button 
+                              variant="ghost" 
+                              size="sm" 
+                              className="text-xs text-red-500 hover:text-red-700"
+                              onClick={() => useBuild.getState().removeComponent("goggles")}
+                            >
+                              Remove
+                            </Button>
+                          </div>
+                          {build.goggles.purchaseUrl && (
+                            <a 
+                              href={build.goggles.purchaseUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-xs text-blue-600 hover:underline flex items-center mt-1"
+                            >
+                              <ShoppingCart className="h-3 w-3 mr-1" />
+                              Purchase
+                              <ExternalLink className="h-3 w-3 ml-1" />
+                            </a>
+                          )}
                         </div>
                       )}
                     </dd>
