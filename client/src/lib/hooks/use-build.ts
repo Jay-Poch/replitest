@@ -33,7 +33,13 @@ export const useBuild = create<BuildState & BuildActions>((set, get) => ({
   ...initialState,
   
   addComponent: (category, component) => {
-    switch (category) {
+    // Add some debug logging
+    console.log(`Adding component with category: ${category}`, component);
+    
+    // Normalize category for consistent handling
+    const normalizedCategory = category.toLowerCase();
+    
+    switch (normalizedCategory) {
       case "drone":
         set({ drone: component });
         break;
@@ -47,6 +53,7 @@ export const useBuild = create<BuildState & BuildActions>((set, get) => ({
         set({ battery: component });
         break;
       case "accessory":
+      case "accessories":
         set(state => ({
           accessories: [...state.accessories.filter(acc => acc.id !== component.id), component]
         }));
@@ -57,7 +64,13 @@ export const useBuild = create<BuildState & BuildActions>((set, get) => ({
   },
   
   removeComponent: (category) => {
-    switch (category) {
+    // Add some debug logging
+    console.log(`Removing component with category: ${category}`);
+    
+    // Normalize category for consistent handling
+    const normalizedCategory = category.toLowerCase();
+    
+    switch (normalizedCategory) {
       case "drone":
         set({ drone: null });
         break;
@@ -70,6 +83,7 @@ export const useBuild = create<BuildState & BuildActions>((set, get) => ({
       case "battery":
         set({ battery: null });
         break;
+      case "accessory":
       case "accessories":
         set({ accessories: [] });
         break;
